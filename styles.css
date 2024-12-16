@@ -28,6 +28,10 @@ body {
     background-color: white;
 }
 
+main {
+    padding-top: 80px; /* Account for fixed navbar */
+}
+
 /* Navbar styles */
 .navbar {
     position: fixed;
@@ -114,7 +118,7 @@ body {
     width: 100%;
     align-items: center;
     margin: 0 auto;
-    padding: 8rem 2rem 2rem;
+    padding: 8rem 2rem;  /* Increased padding */
     min-height: 100vh;
 }
 
@@ -219,5 +223,95 @@ h1 {
     .purchase-button {
         padding: 0.875rem 2.5rem;
         font-size: 1.1rem;
+    }
+}
+
+.author-section {
+    padding: 8rem 2rem;  /* Increased padding */
+    background-color: var(--light-pink);
+    margin-top: 1rem;  /* Added top margin */
+    margin-bottom: 6rem;  /* Added bottom margin */
+}
+
+.author-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+}
+
+.author-image-container {
+    flex: 0 0 400px;
+}
+
+.author-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.author-text {
+    flex: 1;
+}
+
+.author-text h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.5rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+}
+
+.author-title {
+    font-size: 1.25rem;
+    color: var(--coral);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.author-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--navy);
+    margin-bottom: 2rem;
+}
+
+.author-achievements {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--navy);
+}
+
+/* Responsive adjustments */
+@media (max-width: 968px) {
+    .hero-container {
+        padding: 6rem 2rem;  /* Adjusted for mobile */
+    }
+
+    .author-section {
+        padding: 6rem 2rem;
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .section-spacer {
+        height: 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-container {
+        padding: 4rem 1rem;
+    }
+
+    .author-section {
+        padding: 4rem 1rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .section-spacer {
+        height: 3rem;
     }
 }
