@@ -45,6 +45,33 @@
                 </div>
             </div>
         </section>
+
+        <section id = "email" class = "email-section">
+            <div class="subscription-container">
+                <form id="subscriptionForm" class="subscription-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Get Your Free Estate Planning Guide</label>
+                        <p> This includes xxxxxxxxxxxxx xxxxxxxxxxxxxx and xxxxxxxxxxxxxxxxxxx, which will help you do xxxxxxxxxxxxx and xxxxxxxxxxxxxx.</p>
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-input"
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+                    <button type="submit" id="submitButton" class="submit-button">
+                        <span class="button-text">Get Your Guide</span>
+                    </button>
+                    <div id="successAlert" class="alert alert-success">
+                        Check your inbox! Your guide has been sent.
+                    </div>
+                    <div id="errorAlert" class="alert alert-error">
+                        There was an error sending your guide. Please try again.
+                    </div>
+                </form>
+            </div>
+        </section>
     </main>
     <script src="main.js"></script>
 </body>
