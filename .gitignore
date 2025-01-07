@@ -1,2 +1,37 @@
-notes.txt
-node_modules
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*
+
+# Operating System files
+.DS_Store                # Mac OS system files
+Thumbs.db                # Windows image file cache
+*.swp                    # Vim swap files
+*.swo                    # Another Vim swap file type
+
+# IDE and Editor files
+.idea/                   # IntelliJ IDEA
+.vscode/                 # Visual Studio Code
+*.sublime-workspace      # Sublime Text
+*.sublime-project        # Sublime Text
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+
+# Build output
+dist/
+build/
+out/
+
+# Misc
+notes.txt                # Your personal notes
+*.log                    # All log files
+.tmp/                    # Temporary files
+coverage/                # Test coverage reports

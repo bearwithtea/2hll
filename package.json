@@ -1,6 +1,9 @@
 {
+  "name": "2hll",
+  "type": "module",
   "dependencies": {
-    "@mailchimp/mailchimp_marketing": "^3.0.80",
-    "express": "^4.21.2"
+    "@mailchimp/mailchimp_marketing": "^3.0.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.1"
   }
 }
