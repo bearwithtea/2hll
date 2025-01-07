@@ -1,22 +1,18 @@
-//import env variables
 import 'dotenv/config';
 import express from 'express';
 import pkg from '@mailchimp/mailchimp_marketing';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const {
-	setConfig,
-	lists
-} = pkg;
+const mailchimp = pkg;
 const app = express();
 
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('.'));
 
-setConfig({
-	apiKey: process.env.MAILCHIMP_API_KEY,
-	server: 'us4'
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: 'us4'
 });
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,25 +23,29 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/subscribe', async (req, res) => {
-  const { email } = req.body;
+ const { email } = req.body;
+ console.log('Received subscription request:', { email });
 
-  console.log('Config:', {
-    apiKey: process.env.MAILCHIMP_API_KEY?.slice(-4), // Only log last 4 chars
-    server: process.env.MAILCHIMP_SERVER,
-    listId: process.env.MAILCHIMP_LIST_ID
-  });
+ try {
+   // Test connection
+   console.log('Testing Mailchimp connection...');
+   const testResponse = await mailchimp.lists.getAllLists();
+   console.log('Connection successful, total lists:', testResponse.lists.length);
 
-  try {
-    const response = await lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
-      email_address: email,
-      status: 'subscribed'
-    });
-    console.log('Mailchimp Response:', response);
-    res.status(200).json({ message: 'Successfully subscribed' });
-  } catch (error) {
-    console.error('Full Error:', JSON.stringify(error, null, 2));
-    res.status(500).json({ error: 'Error subscribing user' });
-  }
+   console.log('Attempting to subscribe:', email);
+   const addMemberResponse = await mailchimp.lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
+     email_address: email,
+     status: 'subscribed'
+   });
+   console.log('Subscribe success:', addMemberResponse);
+   res.status(200).json({ message: 'Successfully subscribed' });
+ } catch (error) {
+   console.error('Detailed subscription error:', error);
+   if (error.response?.body?.title === 'Member Exists') {
+     return res.status(200).json({ message: 'You\'re already subscribed! Guide resent.' });
+   }
+   res.status(400).json({ error: error.response?.body?.detail || 'Error subscribing user' });
+ }
 });
 
 const PORT = process.env.PORT || 3000;
