@@ -47,31 +47,97 @@
                 </div>
             </div>
         </section>
+        <section class="order-container">
+            <h1 class="order-title">ORDER NOW</h1>
 
-        <section id = "email" class = "email-section">
-            <div class="subscription-container">
-                <form id="subscriptionForm" class="subscription-form">
-                    <div class="form-group">
-                        <label for="email" class="form-label">Get Your Free Estate Planning Guide</label>
-                        <p> This includes <b>free</b> excerpts from Laura's new book which will help you take the first steps to starting your own estate planning business.</p>
-                        <input
-                            type="email"
-                            id="email"
-                            class="form-input"
-                            placeholder="Enter your email"
-                            required
-                        >
+            <div class="order-columns">
+                <!-- Left Column -->
+                <div class="order-column">
+                    <div class="step-header">
+                        <h2>STEP 1</h2>
+                        <div class="step-line"></div>
                     </div>
-                    <button type="submit" id="submitButton" class="submit-button">
-                        <span class="button-text">Get Your Guide</span>
-                    </button>
-                    <div id="successAlert" class="alert alert-success">
-                        Check your inbox! Your guide has been sent.
+
+                    <h3>Order Your Copy of 2-Hour Lifestyle Lawyer™</h3>
+
+                    <div class="retailer-grid">
+                        <a href="#" class="retailer-button amazon">
+                            <img src="amazon.png" alt="Amazon" />
+                        </a>
+                        <a href="#" class="retailer-button barnes">
+                            <img src="barnesandnobles.png" alt="Barnes & Noble" />
+                        </a>
+                        <a href="#" class="retailer-button bam">
+                            <img src="booksamillion.png" alt="Books-A-Million" />
+                        </a>
+                        <a href="#" class="retailer-button target">
+                            <img src="target.png" alt="Target" />
+                        </a>
+                        <a href="#" class="retailer-button bookdepo">
+                            <img src="bookdepository.png" alt="Book Depository" />
+                        </a>
+                        <a href="#" class="retailer-button indie">
+                            <img src="indiebound.png" alt="IndieBound" />
+                        </a>
                     </div>
-                    <div id="errorAlert" class="alert alert-error">
-                        There was an error sending your guide. Please try again.
+
+                    <div class="book-stack">
+                        <img src="book-stack.png" alt="Book Stack" />
                     </div>
-                </form>
+                </div>
+
+                <div class="order-column">
+                    <div class="step-header">
+                        <h2>STEP 2</h2>
+                        <div class="step-line"></div>
+                    </div>
+
+                    <h3>Claim Your Free Bonuses</h3>
+
+                    <p class="bonus-intro">Complete Form to Receive Free Bonus Gifts Including:</p>
+
+                    <div class="bonus-items">
+                        <div class="bonus-item">
+                            <h4>Laura's Blueprint</h4>
+                            <p>- Proident enim pariatur cillum elit. </p>
+                        </div>
+
+                        <div class="bonus-item">
+                            <h4>Laura's Worksheet</h4>
+                            <p>- Proident enim pariatur cillum elit. </p>
+                        </div>
+                    </div>
+
+                    <!-- Modified claim form with proper subscription functionality -->
+                    <form id="subscriptionForm" class="claim-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Email *" required>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="" disabled selected>Where did you order from?</option>
+                                <option value="amazon">Amazon</option>
+                                <option value="barnes">Barnes & Noble</option>
+                                <option value="bam">Books-A-Million</option>
+                                <option value="target">Target</option>
+                                <option value="bookdepo">Book Depository</option>
+                                <option value="indie">IndieBound</option>
+                            </select>
+                        </div>
+                        <button type="submit" id="submitButton" class="claim-button">
+                            <span class="button-text">CLAIM YOUR GIFT</span>
+                        </button>
+                        <div id="successAlert" class="alert alert-success" style="display: none;">
+                            Check your inbox! Your guide has been sent.
+                        </div>
+                        <div id="errorAlert" class="alert alert-error" style="display: none;">
+                            There was an error sending your guide. Please try again.
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
     </main>

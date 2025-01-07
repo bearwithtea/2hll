@@ -373,7 +373,7 @@ h1 {
     padding: 1rem;
     border-radius: 8px;
     margin-top: 1rem;
-    display: none;
+    text-align: center;
 }
 
 .alert-success {
@@ -430,4 +430,219 @@ h1 {
     .section-spacer {
         height: 3rem;
     }
+}
+
+.order-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.order-title {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 4rem;
+}
+
+.order-columns {
+    display: flex;
+    gap: 4rem;
+}
+
+.order-column {
+    flex: 1;
+}
+
+.step-header {
+    margin-bottom: 2rem;
+}
+
+.step-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.step-line {
+    height: 2px;
+    background-color: #666;
+    width: 3rem;
+}
+
+.order-column h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.retailer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.retailer-button {
+    background-color: #F4804E;
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.retailer-button:hover {
+    background-color: #E67341;
+    transform: translateY(-2px);
+}
+
+.retailer-button img {
+    height: 30px;
+    width: auto;
+}
+
+.bonus-intro {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.bonus-items {
+    margin-bottom: 2rem;
+}
+
+.bonus-item {
+    margin-bottom: 1.5rem;
+}
+
+.bonus-item h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.bonus-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.claim-form {
+    background-color: #F8F9FA;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.claim-button {
+    width: 100%;
+    background-color: #F4804E;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.claim-button:hover {
+    background-color: #E67341;
+}
+
+@media (max-width: 768px) {
+    .order-columns {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .retailer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group select {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #666;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-group select:hover {
+    border-color: #D1D5DB;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #F4804E;
+    box-shadow: 0 0 0 3px rgba(244, 128, 78, 0.1);
+}
+
+/* Style for the placeholder option */
+.form-group select option[value=""][disabled] {
+    color: #9CA3AF;
+}
+
+/* Style for actual options */
+.form-group select option {
+    color: #333;
+    padding: 1rem;
+}
+
+/* Remove default focus outline in Firefox */
+.form-group select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #666;
+}
+
+/* Hover state for options in Firefox */
+.form-group select option:hover {
+    background-color: #F4804E;
+    color: white;
+}
+
+/* Custom width for the dropdown */
+.form-group {
+    position: relative;
+}
+
+/* Style for the container on focus */
+.form-group:focus-within::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 10px;
+    pointer-events: none;
 }

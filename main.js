@@ -1,21 +1,3 @@
-document.querySelector('.purchase-button').addEventListener('click', function()
-  {
-    console.log('Purchase clicked');
-});
-
-document.querySelectorAll('.nav-links a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').slice(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    });
-});
-
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('subscriptionForm');
     const submitButton = document.getElementById('submitButton');
@@ -25,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        console.log('Form submitted'); // Debug log
 
         successAlert.style.display = 'none';
         errorAlert.style.display = 'none';
@@ -34,9 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonText.textContent = 'Sending...';
 
         const email = document.getElementById('email').value;
+        console.log('Attempting to send email:', email); // Debug log
 
         try {
-            const response = await fetch('/api/subscribe', {
+            const response = await fetch('http://localhost:3000/api/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,9 +28,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({ email })
             });
 
+            console.log('Response received:', response); // Debug log
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+
+            const data = await response.json();
+            console.log('Success data:', data); // Debug log
 
             successAlert.style.display = 'block';
             form.reset();
@@ -55,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             buttonText.textContent = 'Sent!';
 
         } catch (error) {
+            console.error('Error:', error); // Debug log
             errorAlert.style.display = 'block';
             submitButton.disabled = false;
             submitButton.classList.remove('loading');
