@@ -27,7 +27,6 @@ app.post('/api/subscribe', async (req, res) => {
  console.log('Received subscription request:', { email });
 
  try {
-   // Test connection
    console.log('Testing Mailchimp connection...');
    const testResponse = await mailchimp.lists.getAllLists();
    console.log('Connection successful, total lists:', testResponse.lists.length);
