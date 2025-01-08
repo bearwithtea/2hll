@@ -1,3 +1,4 @@
+// /public/scripts/main.js
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('subscriptionForm');
     const submitButton = document.getElementById('submitButton');
