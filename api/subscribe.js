@@ -7,7 +7,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email } = req.body;
+  const { email, firstName, orderSource } = req.body; // Add missing fields
+  console.log('Request body:', req.body);
 
   try {
     setConfig({
@@ -17,11 +18,16 @@ export default async function handler(req, res) {
 
     const addMemberResponse = await lists.addListMember(process.env.MAILCHIMP_LIST_ID, {
       email_address: email,
-      status: 'subscribed'
+      status: 'subscribed',
+      merge_fields: {
+        FNAME: firstName,
+        SOURCE: orderSource
+      }
     });
-
+    console.log('Mailchimp response:', addMemberResponse);
     res.status(200).json({ message: 'Successfully subscribed' });
   } catch (error) {
-    res.status(500).json({ error: 'Error subscribing user' });
+    console.error('Mailchimp error:', error);
+    res.status(500).json({ error: error.message });
   }
 }
