@@ -35,3 +35,4 @@ notes.txt                # Your personal notes
 *.log                    # All log files
 .tmp/                    # Temporary files
 coverage/                # Test coverage reports
+.vercel
