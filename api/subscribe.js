@@ -1,88 +1,65 @@
-// public/scripts/form.js
-function validateEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-}
+import mailchimp from "@mailchimp/mailchimp_marketing";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("#subscriptionForm");
-  const submitButton = form.querySelector("#submitButton");
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
+  if (req.body.website) {
+    return res.status(400).json({ error: "Bot detected" });
+  }
 
-    // Get form data
-    const email = form.querySelector('[name="email"]').value;
-    const firstName = form.querySelector('[name="first_name"]').value;
+  const { email, firstName, orderSource, recaptchaToken } = req.body;
 
-    // Validate form data
-    if (!validateEmail(email)) {
-      document.getElementById("errorAlert").textContent =
-        "Please enter a valid email address";
-      document.getElementById("errorAlert").style.display = "block";
-      return;
+  try {
+    // Verify reCAPTCHA token first
+    const recaptchaResponse = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+      { method: "POST" },
+    );
+
+    const recaptchaData = await recaptchaResponse.json();
+
+    if (!recaptchaData.success || recaptchaData.score < 0.5) {
+      return res.status(400).json({ error: "reCAPTCHA verification failed" });
     }
 
-    if (firstName.length < 2) {
-      document.getElementById("errorAlert").textContent =
-        "Please enter your first name";
-      document.getElementById("errorAlert").style.display = "block";
-      return;
+    if (
+      !process.env.MAILCHIMP_API_KEY ||
+      !process.env.MAILCHIMP_SERVER ||
+      !process.env.MAILCHIMP_LIST_ID
+    ) {
+      throw new Error("Missing required environment variables");
     }
 
-    // Show loading state
-    submitButton.disabled = true;
-    submitButton.innerHTML = '<span class="button-text">Submitting...</span>';
+    mailchimp.setConfig({
+      apiKey: process.env.MAILCHIMP_API_KEY,
+      server: process.env.MAILCHIMP_SERVER.trim(),
+    });
 
-    // Check honeypot
-    const honeypot = form.querySelector("#website").value;
-    if (honeypot) {
-      console.log("Bot detected via honeypot");
-      return;
-    }
-
-    try {
-      // Get reCAPTCHA token
-      const token = await grecaptcha.execute(
-        "6LePDsoqAAAAAKg6yJR9ZZ923w4QWgdTeBEvg2gv",
-        { action: "submit" },
-      );
-
-      // Prepare form data
-      const formData = {
-        email,
-        firstName,
-        orderSource: form.querySelector('[name="retailer"]').value,
-        recaptchaToken: token,
-      };
-
-      // Submit form
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await mailchimp.lists.addListMember(
+      process.env.MAILCHIMP_LIST_ID.trim(),
+      {
+        email_address: email,
+        status: "subscribed",
+        merge_fields: {
+          FNAME: firstName,
+          SOURCE: orderSource,
         },
-        body: JSON.stringify(formData),
-      });
+      },
+    );
 
-      if (response.ok) {
-        document.getElementById("successAlert").style.display = "block";
-        document.getElementById("errorAlert").style.display = "none";
-        form.reset();
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Subscription failed");
-      }
-    } catch (error) {
-      document.getElementById("errorAlert").textContent = error.message;
-      document.getElementById("errorAlert").style.display = "block";
-      document.getElementById("successAlert").style.display = "none";
-      console.error("Error:", error);
-    } finally {
-      // Reset button state
-      submitButton.disabled = false;
-      submitButton.innerHTML =
-        '<span class="button-text">CLAIM YOUR GIFT</span>';
-    }
-  });
-});
+    console.log("Subscription successful:", response.id);
+    res.status(200).json({ message: "Successfully subscribed" });
+  } catch (error) {
+    console.error("Detailed error:", {
+      message: error.message,
+      stack: error.stack,
+      code: error.code,
+    });
+    res.status(500).json({
+      error: error.message,
+      code: error.code || "UNKNOWN_ERROR",
+    });
+  }
+}
